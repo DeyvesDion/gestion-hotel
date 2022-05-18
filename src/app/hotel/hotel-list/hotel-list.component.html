@@ -1,0 +1,88 @@
+<div>
+  <div class="containerContaint">
+    <!-- Page title -->
+    <div *ngIf="hotels && hotels.length > 0" class="listTitle mt-3 mb-3">
+      <h1>{{ title }}</h1>
+    </div>
+    <!-- End Page title -->
+    <!-- Hotel List -->
+
+    <button
+      (click)="toggleBadgeIsNewBagdge()"
+      type="button"
+      class="btn btn-primary d-flex position-relative"
+      title="Afficher les nouveau hôtels"
+    >
+      <span class="material-icons">
+        {{ showBadge ? "visibility_off" : "visibility" }}
+      </span>
+      <span style="margin-left: 10px">
+        {{ showBadge ? "Cacher" : "Afficher" }} Nouveau
+      </span>
+      <span
+        class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
+      >
+        <span class="visually-hidden">New alerts</span>
+      </span>
+    </button>
+
+    <hr />
+    <div class="my-2">
+      <div class="row">
+        <div class="col-md-4">
+          <span class="filter"
+            >Filtre actuel : <b>{{ hotelFilter | titlecase }}</b>
+          </span>
+        </div>
+        <div class="col-md-8 form-group">
+          <input
+            type="text"
+            name=""
+            id=""
+            class="form-control"
+            [(ngModel)]="hotelFilter"
+            placeholder="Recherche..."
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="hotelList mt-5 my-5">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        <div class="col md-4" *ngFor="let hotel of filteredHotels">
+          <!-- Hotel Card -->
+          <div class="card">
+            <img
+              [src]="hotel.imageUrl"
+              [title]="hotel.hotelName | titlecase"
+              class="card-img-top"
+              [alt]="hotel.hotelName"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ hotel.hotelName | titlecase }}</h5>
+              <!-- <div class="d-flex">
+                <h5>{{ hotel.price }} €</h5>
+                <span></span>
+              </div> -->
+
+              <p class="card-text">
+                {{ hotel.description }}
+              </p>
+              <div class="card-text">
+                {{
+                  hotel.price
+                    | currency: "EUR":"symbol":"1.2-2":"fr"
+                    | replaceComma
+                }}
+              </div>
+              <app-star-rating [rating]="hotel.rating"></app-star-rating>
+              <span *ngIf="showBadge" class="badge bg-info">Nouveau</span>
+            </div>
+          </div>
+          <!-- End Hotel Card -->
+        </div>
+      </div>
+    </div>
+    <!-- End Hotel List -->
+  </div>
+</div>
