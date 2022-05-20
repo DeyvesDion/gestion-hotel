@@ -10,7 +10,7 @@
     <button
       (click)="toggleBadgeIsNewBagdge()"
       type="button"
-      class="btn btn-primary d-flex position-relative"
+      class="btn btn-info d-flex position-relative"
       title="Afficher les nouveau hôtels"
     >
       <span class="material-icons">
@@ -48,6 +48,9 @@
     </div>
 
     <div class="hotelList mt-5 my-5">
+      <div class="alert alert-info" role="alert" *ngIf="!!receivedRating">
+        {{ receivedRating }}
+      </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
         <div class="col md-4" *ngFor="let hotel of filteredHotels">
           <!-- Hotel Card -->
@@ -60,10 +63,6 @@
             />
             <div class="card-body">
               <h5 class="card-title">{{ hotel.hotelName | titlecase }}</h5>
-              <!-- <div class="d-flex">
-                <h5>{{ hotel.price }} €</h5>
-                <span></span>
-              </div> -->
 
               <p class="card-text">
                 {{ hotel.description }}
@@ -75,7 +74,21 @@
                     | replaceComma
                 }}
               </div>
-              <app-star-rating [rating]="hotel.rating"></app-star-rating>
+
+              <div class="d-flex justify-content-between align-items-basline">
+                <app-star-rating
+                  [rating]="hotel.rating"
+                  (starRatingClicked)="receiveRatingClicked($event)"
+                ></app-star-rating>
+
+                <span
+                  class="material-icons bg-info text-white p-2 rounded-circle btn"
+                  [routerLink]="['/hotels', hotel.hotelId]"
+                >
+                  keyboard_arrow_right
+                </span>
+              </div>
+
               <span *ngIf="showBadge" class="badge bg-info">Nouveau</span>
             </div>
           </div>

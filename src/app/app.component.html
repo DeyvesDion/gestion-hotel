@@ -1,4 +1,44 @@
-<div class="container">
-  <h1 style="margin: 60px 0 30px 0">{{ title }}</h1>
-  <app-hotel-list></app-hotel-list>
+<!-- NabBar -->
+
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-light fs-5" [routerLink]="['']">{{
+      title | uppercase
+    }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link fw-semibold text-light fs-5"
+            [routerLink]="['/home']"
+            [routerLinkActive]="['active']"
+            >Accueil</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link fw-semibold text-light fs-5"
+            [routerLink]="['/hotels']"
+            [routerLinkActive]="['active']"
+            >Liste</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <router-outlet></router-outlet>
 </div>
